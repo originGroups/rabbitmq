@@ -4,7 +4,6 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import jdk.nashorn.internal.runtime.ECMAException;
 import org.springframework.util.StringUtils;
 
 import java.util.concurrent.*;
