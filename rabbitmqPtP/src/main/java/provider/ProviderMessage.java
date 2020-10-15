@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import org.junit.Test;
 import utils.RabbitmqUtils;
 
@@ -71,18 +72,18 @@ public class ProviderMessage {
         Channel channel = connection.createChannel();
         //点对点模式,不使用交换机,将通道绑定到指定队列
         //参数1:queue(队列名称),如果该队列不存在则会自动创建
-        //参数2:定义队列特性是否要持久化,true表示要持久化队列
-        //参数3:exclusive(排除)是否独占队列,true表示该队列只能被当前通道所占用,false表示不独占队列
-        //参数4:autoDelete 是否在消费完后自动删除队列,false表示不自动删除
+        //参数2:定义队列特性是否要持久化,true表示要持久化队列,服务即使挂掉队列也不会丢失
+        //参数3:exclusive(排除)是否独占队列,true表示该队列只能被当前通道所占用,false表示不独占队列,一般都是false,允许其他通道使用该队列
+        //参数4:autoDelete 是否在消费完后且通道与队列绑定关系断开后怕[生产者发送完消息,该进程就挂了,与队列的绑定关系也断了,而消费者一直处于监听状态,所以只有主动关闭消费者才消费者通道才与队列断开]自动删除队列,false表示不自动删除
         //参数5:额外参数
         channel.queueDeclare("hello",false,false,false,null);
         //发布消息
         //参数1:exchange(交换机名称),点对点不使用交换机
         //参数2:routingKey(队列名称)
-        //参数3:props(传递消息的额外配置)
+        //参数3:props(传递消息的额外配置)MessageProperties.PERSISTENT_TEXT_PLAIN 表示消息持久化,如果rabbitmq服务挂掉,那么未被消费的消息在服务重启后会自己恢复,不会丢失
         //参数4:body(消息内容,字节)
-        channel.basicPublish("","hello",null,"hello rabbitmq".getBytes());
-
+        //channel.basicPublish("","hello",null,"hello rabbitmq".getBytes());
+        channel.basicPublish("","hello", MessageProperties.PERSISTENT_TEXT_PLAIN,"hello rabbitmq".getBytes());
         //关闭通道
         /**channel.close();
         connection.close();*/
