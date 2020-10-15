@@ -5,6 +5,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.Test;
+import utils.RabbitmqUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +37,7 @@ public class ProviderMessage {
         factory.setPassword(prop.getProperty("RabbitMQPassword"));
         */
 
-        //创建连接mq的连接工厂对象
+        /*//创建连接mq的连接工厂对象
         ConnectionFactory connectionFactory = new ConnectionFactory();
         //设置连接rabbitmq主机
         connectionFactory.setHost("10.15.0.9");
@@ -62,10 +63,10 @@ public class ProviderMessage {
         connectionFactory.setConnectionTimeout(30000);
         //心跳
         connectionFactory.setRequestedHeartbeat(60);
-
-
         //最后一步,获取mq连接对象
-        Connection connection = connectionFactory.newConnection();
+        Connection connection = connectionFactory.newConnection();*/
+
+        Connection connection = RabbitmqUtils.getConnection();
         //获取连接中的一个通道
         Channel channel = connection.createChannel();
         //点对点模式,不使用交换机,将通道绑定到指定队列
@@ -83,7 +84,8 @@ public class ProviderMessage {
         channel.basicPublish("","hello",null,"hello rabbitmq".getBytes());
 
         //关闭通道
-        channel.close();
-        connection.close();
+        /**channel.close();
+        connection.close();*/
+        RabbitmqUtils.closeChannelAndConnection(channel,connection);
     }
 }

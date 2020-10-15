@@ -35,6 +35,15 @@
             <artifactId>guava</artifactId>
             <version>28.2-android</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <!--暂时为使用StringUtils-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.2.5.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 </project>
