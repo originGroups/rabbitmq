@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rabbitmqPtP</artifactId>
+    <artifactId>rabbitmqWQ</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.personal</groupId>
