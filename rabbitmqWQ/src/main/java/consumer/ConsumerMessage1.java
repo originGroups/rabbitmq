@@ -14,7 +14,8 @@ import java.io.IOException;
  * @data 2020/10/16 11:32
  * @Description
  * 工作模式队列:
- *       区别与点对点模式的一对一,工作模式队列为一对多,即一个生产者对应多个消费者,该模式默认情况为平均分派消息给各个消费者进行消费
+ *       区别与点对点模式的一对一,工作模式队列为一对多,即一个生产者对应多个消费者,该模式默认情况,RabbitMQ将按顺序将每个消息发送给下一个消费者,平均而言,每个消费者都会收到相同数量的消息,这种分发消息的方式称为循环.
+ *       如果某个消费者执行效率低下,那么分派给它的消息就会执行缓慢,造成消息堆积
  */
 public class ConsumerMessage1 {
     public static void main(String[] args) throws IOException {
