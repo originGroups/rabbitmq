@@ -1,4 +1,4 @@
-package provider.consumer;
+package consumer;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
