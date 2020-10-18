@@ -12,6 +12,7 @@
         <module>rabbitmqPtP</module>
         <module>rabbitmqWQ</module>
         <module>commons</module>
+        <module>rabbitmqFanout</module>
     </modules>
 
     <properties>
